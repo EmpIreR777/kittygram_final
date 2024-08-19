@@ -7,28 +7,31 @@ volumes:
 
 services:
   db:
-    image: postgres:13
+    image: postgres:13.10
     env_file: .env
     volumes:
       - pg_data:/var/lib/postgresql/data
+
   backend:
-    build: ./backend/
+    image: empirer777/kitty_backend
     env_file: .env
     depends_on:
       - db
     volumes:
       - static:/backend_static
       - media:/app/media
+
   frontend:
+    image: empirer777/kitty_frontend
     env_file: .env
-    build: ./frontend/
     command: cp -r /app/build/. /frontend_static/
     volumes:
       - static:/frontend_static
     depends_on:
       - backend
+
   gateway:
-    build: ./nginx/
+    image: empirer777/kitty_gateway
     env_file: .env
     depends_on:
       - frontend
