@@ -13,7 +13,7 @@ services:
       - pg_data:/var/lib/postgresql/data
 
   backend:
-    image: empirer777/kitty_backend
+    image: empirer777/kittygram_backend
     env_file: .env
     depends_on:
       - db
@@ -22,7 +22,7 @@ services:
       - media:/app/media
 
   frontend:
-    image: empirer777/kitty_frontend
+    image: empirer777/kittygram_frontend
     env_file: .env
     command: cp -r /app/build/. /frontend_static/
     volumes:
@@ -31,7 +31,7 @@ services:
       - backend
 
   gateway:
-    image: empirer777/kitty_gateway
+    image: empirer777/kittygram_gateway
     env_file: .env
     depends_on:
       - frontend
